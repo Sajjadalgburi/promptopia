@@ -22,6 +22,8 @@ const Nav = () => {
     setProviders();
   }, []);
 
+  const [toggleDropDown, setToggleDropDown] = useState(false);
+
   return (
     <nav className="flex-between w-full mb-16 pt-3">
       <Link className="flex gap-2 flex-center" href={"/"}>
@@ -39,15 +41,15 @@ const Nav = () => {
       <div className="sm:flex hidden ">
         {isUserLoggedIn ? (
           <div className=" flex gap-3 md:gap-5">
-            <Link href={"/create-prompt"} className="black_btn">
-              create Post
+            <Link href={"create-prompt"} className="black_btn">
+              Create Prompt
             </Link>
 
             <button type="button" onClick={signOut} className="outline_btn">
               Sign Out
             </button>
 
-            <Link href={"/profile"}>
+            <Link href={"profile"}>
               <Image
                 width={37}
                 height={37}
@@ -56,6 +58,70 @@ const Nav = () => {
                 src={"/assets/images/logo.svg"}
               />
             </Link>
+          </div>
+        ) : (
+          <>
+            {provider &&
+              Object.values(providers).map((provider) => (
+                <button
+                  onClick={() => signIn(provider.id)}
+                  type="button"
+                  key={provider.name}
+                  className="black_btn"
+                >
+                  Sign In
+                </button>
+              ))}
+          </>
+        )}
+      </div>
+      {/* Mobile Nabigation */}
+      <div className="sm:hidden flex relative">
+        {isUserLoggedIn ? (
+          <div className="flex">
+            {" "}
+            <Image
+              width={37}
+              height={37}
+              className="rounded-full"
+              alt="profile"
+              src={"/assets/images/logo.svg"}
+              // changing the state using a concise way! (does the opposite of what the state was before)
+              onClick={() => {
+                setToggleDropDown((prev) => !prev);
+              }}
+            />
+            {toggleDropDown && (
+              <div className="dropdown">
+                <Link
+                  href={"profile"}
+                  className="dropdown_link"
+                  // when the user clicks, it will redirect to '/profile' and set the state of the toggle to false to hide it
+                  onClick={() => setToggleDropDown(false)}
+                >
+                  My Profile
+                </Link>
+                <Link
+                  href={"create-prompt"}
+                  className="dropdown_link"
+                  // when the user clicks, it will redirect to '/profile' and set the state of the toggle to false to hide it
+                  onClick={() => setToggleDropDown(false)}
+                >
+                  Create Prompt
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setToggleDropDown(false);
+                    signOut();
+                  }}
+                  className="black_btn mt-5 w-full"
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <>
