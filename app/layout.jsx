@@ -11,14 +11,17 @@ export const metadata = {
 const RootLayout = ({ children }) => (
   <html lang="en">
     <body>
-      <div className="main">
-        <div className="gradient" />
-      </div>
+      {/* wrapping the entire contents of the page with the provder to essentially pass the sessiion and utliizing authentication methods */}
+      <Provider>
+        <div className="main">
+          <div className="gradient" />
+        </div>
 
-      <main className="app">
-        <Nav />
-        {children}
-      </main>
+        <main className="app">
+          <Nav />
+          {children}
+        </main>
+      </Provider>
     </body>
   </html>
 );
