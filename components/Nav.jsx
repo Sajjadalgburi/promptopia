@@ -107,7 +107,7 @@ const Nav = () => {
                   // when the user clicks, it will redirect to '/profile' and set the state of the toggle to false to hide it
                   onClick={() => setToggleDropDown(false)}
                 >
-                  Create Prompt
+                  Create Post
                 </Link>
 
                 <button
