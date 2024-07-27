@@ -8,18 +8,18 @@ import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Nav = () => {
-  const isUserLoggedIn = true;
+  const { data: session } = useSession();
 
-  const [provider, setProviders] = useState(null);
+  const [providers, setProviders] = useState(null);
 
   useEffect(() => {
-    const setProviders = async () => {
+    const setProviderss = async () => {
       const response = await getProviders();
 
       setProviders(response);
     };
 
-    setProviders();
+    setProviderss();
   }, []);
 
   const [toggleDropDown, setToggleDropDown] = useState(false);
@@ -39,7 +39,7 @@ const Nav = () => {
 
       {/* Desktop Nabigation */}
       <div className="sm:flex hidden ">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className=" flex gap-3 md:gap-5">
             <Link href={"create-prompt"} className="black_btn">
               Create Prompt
@@ -55,13 +55,13 @@ const Nav = () => {
                 height={37}
                 className="rounded-full"
                 alt="profile"
-                src={"/assets/images/logo.svg"}
+                src={session?.user.image}
               />
             </Link>
           </div>
         ) : (
           <>
-            {provider &&
+            {providers &&
               Object.values(providers).map((provider) => (
                 <button
                   onClick={() => signIn(provider.id)}
@@ -77,7 +77,7 @@ const Nav = () => {
       </div>
       {/* Mobile Nabigation */}
       <div className="sm:hidden flex relative">
-        {isUserLoggedIn ? (
+        {session?.user ? (
           <div className="flex">
             {" "}
             <Image
@@ -85,7 +85,7 @@ const Nav = () => {
               height={37}
               className="rounded-full"
               alt="profile"
-              src={"/assets/images/logo.svg"}
+              src={session?.user.image}
               // changing the state using a concise way! (does the opposite of what the state was before)
               onClick={() => {
                 setToggleDropDown((prev) => !prev);
@@ -125,7 +125,7 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {provider &&
+            {providers &&
               Object.values(providers).map((provider) => (
                 <button
                   onClick={() => signIn(provider.id)}
