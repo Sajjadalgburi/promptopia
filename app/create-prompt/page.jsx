@@ -7,20 +7,15 @@ import { useRouter } from "next/navigation";
 import Form from "@components/Form";
 
 const CreatePrompt = () => {
-  const [subitting, setSubmitting] = useState(false);
-
-  const [post, setPost] = useState({
-    prompt: "",
-    tag: "",
-  });
-
-  const { data: session } = useSession();
   const router = useRouter();
+  const { data: session } = useSession();
 
-  const createPost = async (e) => {
-    e.preventDefault(); // prevent the normal behaviour of reloading once the form is submitted
+  const [submitting, setIsSubmitting] = useState(false);
+  const [post, setPost] = useState({ prompt: "", tag: "" });
 
-    setSubmitting(true);
+  const createPrompt = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
     try {
       const response = await fetch("/api/prompt/new", {
@@ -38,7 +33,7 @@ const CreatePrompt = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setSubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -47,8 +42,8 @@ const CreatePrompt = () => {
       type="Create"
       post={post}
       setPost={setPost}
-      subitting={subitting}
-      handleSubmit={createPost}
+      submitting={submitting}
+      handleSubmit={createPrompt}
     />
   );
 };
