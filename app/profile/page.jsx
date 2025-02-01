@@ -23,7 +23,8 @@ const MyProfile = () => {
 
     // only once we have the users id from the session then we may fetch the posts
     if (session?.user.id) fetchPosts();
-  }, []);
+  }, [session?.user.id, setPosts]);
+
 
   const handleDelete = async (post) => {
     // the confirm method is built into the broswer and gives a boolean value
