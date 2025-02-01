@@ -7,10 +7,8 @@ import { Suspense } from 'react';
 
 const UpdatePrompt = () => {
   const router = useRouter();
-
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
-
   const [submitting, setIsSubmitting] = useState(false);
   const [post, setPost] = useState({ prompt: "", tag: "" });
 
@@ -64,7 +62,6 @@ const UpdatePrompt = () => {
         setPost={setPost}
         submitting={submitting}
         handleSubmit={updatePrompt}
-
       />
     </Suspense>
   );
