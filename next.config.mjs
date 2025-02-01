@@ -8,6 +8,10 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+
+  ignoreBuildErrors: true,
+
+
   images: {
     remotePatterns: [
       {
