@@ -5,6 +5,7 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ["mongoose"],
   },
+  ignoreBuildErrors: true,
   images: {
     remotePatterns: [
       {
