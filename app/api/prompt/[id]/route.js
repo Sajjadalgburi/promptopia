@@ -1,6 +1,5 @@
 import { connectToDB } from "@utils/database";
 import Prompt from "@models/prompt";
-import { connect } from "mongoose";
 
 // GET to read
 export const GET = async (req, { params }) => {
