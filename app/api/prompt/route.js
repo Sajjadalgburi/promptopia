@@ -1,4 +1,4 @@
-import { connectToDB } from "@utils/database";
+import { connectToDB } from "@database";
 import Prompt from "@models/prompt";
 
 export const GET = async (req) => {
