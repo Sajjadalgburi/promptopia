@@ -9,9 +9,6 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  ignoreBuildErrors: true,
-
-
   images: {
     remotePatterns: [
       {
